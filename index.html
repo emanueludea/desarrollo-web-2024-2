@@ -2,11 +2,11 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="author" content="Emanuel Montoya" />
-    <meta name="description" content="Ejemplo de clase" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Emanuel Montoya">
+    <meta name="description" content="Ejemplo de clase">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejemplo de clase</title>
-    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="./resources/styles/main.css">
     <style>
       p {
         display: block;
@@ -31,13 +31,13 @@
       /* [href|="otro"]{
         color: yellow;
       } */
-      [href*="otro"]{
+      /* [href*="otro"]{
         color: yellow;
       }
       span.oscuro{
         font-size: 1.5rem;
         background-color: yellow;
-      }
+      } */
     </style>
   </head>
   <body>
@@ -45,11 +45,11 @@
       <h1>Mi pagina de ejemplo</h1>
       <nav>
         <ul>
-          <li><a href="https://www.google.com" target="_blank">uno</a></li>
-          <li><a href="#final">dos</a></li>
+          <li><a href="#">uno</a></li>
+          <li><a href="./resources/pages/dos.html">dos</a></li>
           <li><a href="http://facebook.com" target="_blank">tres</a></li>
           <li><a href="b-otroasdf">cuadro</a></li>
-          <li><a href="a-otro">cinco</a></li>
+          <li><a href="#final">final</a></li>
         </ul>
       </nav>
     </header>
@@ -81,6 +81,7 @@
       </section>
       <section>
         <article>
+          <h2>Articulo1 (seccion1)</h2>
           <section>
             <h2>seccion 1 articulo1</h2>
             <p class="bonito asdf asd fasd fa asdf as fasdf asdf as dfas dfasdf">
@@ -101,7 +102,7 @@
           </section>
         </article>
         <article>
-          <h2>articulo2</h2>
+          <h2>articulo1 (seccion2)</h2>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis,
             itaque. Voluptatem sapiente, et modi ipsam, nemo alias voluptas, est
@@ -110,6 +111,7 @@
           </p>
         </article>
         <article>
+          <h2>articulo2 (seccion2)</h2>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis,
             itaque. Voluptatem sapiente, et modi ipsam, nemo alias voluptas, est
