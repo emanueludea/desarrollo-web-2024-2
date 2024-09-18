@@ -4,6 +4,8 @@ Si tu documento termina en número par, deberás constriur las páginas como se 
 
 Los colores no tienen que ser exactos, puedes usar los que quieras, pero deben ser diferentes entre sí, según se ve en las imágenes.
 
+La imágenes e íconos también pueden varias si así lo desean.
+
 Las 3 páginas deben estar enlazadas entre sí, es decir, desde cualquiera se puede visitar las otras 2.
 
 Recuerda usar elementos HTML sintácticos.
