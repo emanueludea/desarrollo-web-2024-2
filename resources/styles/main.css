@@ -76,3 +76,9 @@ p.bonito {
 
 a:active {
 }
+
+.miClase{
+  width: 200px;
+  height: 200px;
+  background-color: orange;
+}
