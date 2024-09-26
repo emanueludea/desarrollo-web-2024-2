@@ -1,0 +1,20 @@
+{
+    "elementos":[
+        {
+            "nombre": "item1",
+            "valor": 10
+        },
+        {
+            "nombre": "item2",
+            "valor": 100
+        },
+        {
+            "nombre": "item3",
+            "valor": 123
+        },
+        {
+            "nombre": "item4",
+            "valor": 510
+        }
+    ]
+}
