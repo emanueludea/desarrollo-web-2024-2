@@ -1,0 +1,9 @@
+main {
+  display: flex;
+  flex-wrap: wrap;
+}
+.card {
+    background-color: orange;
+    flex: 1 0 30%;
+    margin: 10px;
+}
