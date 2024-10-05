@@ -1,9 +1,15 @@
-main {
-  display: flex;
-  flex-wrap: wrap;
+body{
+  font-size: 2em;
 }
-.card {
-    background-color: orange;
-    flex: 1 0 30%;
-    margin: 10px;
+
+.error{
+  background-color: red;
+}
+
+.ok{
+  background-color: green;
+}
+
+.neutral{
+  background-color: white;
 }

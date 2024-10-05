@@ -5,11 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Javascript</title>
     <link rel="stylesheet" href="resources/styles/apis.css" />
-    <!-- <script src="resources/script/apis.js"></script> -->
     <script type="module" src="./main.js"></script>
   </head>
   <body>
     <header>
+      <h1>Mascotas con JS</h1>
+      <form action="#" id="pet-form">
+        <span><label for="pet-id">Pet ID:</label><input type="number" name="pet-id" id="pet-id"></span>
+        <button type="submit">Consultar</button>
+      </form>
     </header>
+    <main>
+      <pre><code id="result">
+
+      </code></pre>
+      <form id="send-pet" action="" method="get">
+        <div><span><label for="">ID:</label><input id="pet-id2" type="number"></span></div>
+        <div><span><label for="">Nombre:</label><input id="pet-name2" type="text"></span></div>
+        <div><span><label for="">Tipo:</label>
+          <select name="" id="pet-type2">
+            <option value="">Seleccione</option>
+            <option value="dog">Perro</option>
+            <option value="cat">Gato</option>
+            <option value="bird">Pajaro</option>
+          </select>
+        </span></div>
+        <button type="submit">Guardar</button>
+      </form>
+    </main>
   </body>
 </html>
