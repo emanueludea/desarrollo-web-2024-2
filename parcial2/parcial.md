@@ -1,10 +1,13 @@
 # ¿Qué hay hacer?
 Construir una aplicación que consuma la API asignada y modifique el DOM, usando javascript
 * El archivo parcial-api.yaml describe la api a consumir en formato OpenAPI. Puede lanzar la aplicación en un contenedor, tal como vimos en la clase anterior.
+* Documentos terminados en número par deben usar los endpoint para 'users'
+* Documentos terminados en número impar deben usar los endpoint para 'foods'
 * Usar async/await
 * Usa módulos
 * Usar clases
 * Separar la lógica de los llamados a la API y el manejo del DOM
+* No olvide usar elementos HTML semánticos
 * Usar los métodos HTTP correctos para cada llamado
 ## Consultar listado de elementos
 Con los resultados debe crear dinámicamente los elementos correspondientes para visualizar cada uno de los resultados retornados.
