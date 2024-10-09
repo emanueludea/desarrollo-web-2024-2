@@ -4,6 +4,7 @@ Construir una aplicación que consuma la API asignada y modifique el DOM, usando
 * Documentos terminados en número par deben usar los endpoint para 'users'
 * Documentos terminados en número impar deben usar los endpoint para 'foods'
 * Usar async/await
+* Usar fetch
 * Usa módulos
 * Usar clases
 * Separar la lógica de los llamados a la API y el manejo del DOM
