@@ -25,6 +25,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/User'
+                minItems: 10
+                maxItems: 40
     post:
       requestBody:
         required: true
@@ -131,6 +133,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Food'
+                minItems: 10
+                maxItems: 30
     post:
       summary: Create a new food
       requestBody:
