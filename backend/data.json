@@ -1,18 +1,18 @@
 [
     {
-      id: 1,
-      nombre: "Carlos",
-      telefono: "31222222222",
+      "id": 1,
+      "nombre": "Carlos",
+      "telefono": "31222222222"
     },
     {
-      id: 2,
-      nombre: "MIguel",
-      telefono: "3128976542",
+      "id": 2,
+      "nombre": "MIguel",
+      "telefono": "3128976542"
     },
     {
-      id: 3,
-      nombre: "Antonio",
-      telefono: "3125879856",
-    },
-  ];
+      "id": 3,
+      "nombre": "Antonio",
+      "telefono": "3125879856"
+    }
+  ]
   

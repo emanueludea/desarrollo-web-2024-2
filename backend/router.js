@@ -1,20 +1,7 @@
-const users = [
-  {
-    id: 1,
-    nombre: "Carlos",
-    telefono: "31222222222",
-  },
-  {
-    id: 2,
-    nombre: "MIguel",
-    telefono: "3128976542",
-  },
-  {
-    id: 3,
-    nombre: "Antonio",
-    telefono: "3125879856",
-  },
-];
+import * as fs from 'fs';
+
+const users = JSON.parse(fs.readFileSync('./data.json'));
+console.log(users);
 
 const getUsers = (req, res) => {
   res.status(200).send(JSON.stringify(users));
@@ -30,10 +17,12 @@ const createUser = (req, res) => {
 const updateUser = (req, res) => {
   console.log(`El usuario que quieren actualizar es ${req.params.id}`);
   let exists = false;
-  users.forEach((item) => {
-    if (item.id == req.params.id) exists = true;
-  });
-  if (exists) {
+  const user = users.find(item=> item.id == req.params.id);
+  console.log(user);
+  // users.forEach((item) => {
+  //   if (item.id == req.params.id) exists = true;
+  // });
+  if (user) {
     res
       .status(200)
       .send(JSON.stringify({ message: "se actualizó correctamente" }));
