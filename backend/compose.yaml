@@ -2,16 +2,20 @@ name: backend
 services:
   api: 
     build: api
-    environment:
-      - DB_USER=postgres
-      - DB_PASSWORD=psql
-      - DB_NAME=app
-      - DB_HOST=db
-      - DB_PORT=5432
+    env_file:
+      - ./api/.env
     ports:
       - 8081:8080
   
   db:
     build: db
+    env_file:
+      - ./db/.env
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 80:80
     environment:
-      - POSTGRES_PASSWORD=psql
+      - PGADMIN_DEFAULT_EMAIL=a@a.com
+      - PGADMIN_DEFAULT_PASSWORD=12345

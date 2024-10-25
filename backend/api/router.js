@@ -8,7 +8,9 @@ import {
 
 const getUsers = async (req, res) => {
   const users = await getUsersDB();
-  res.status(200).send(JSON.stringify(users));
+  const result = JSON.stringify(users);
+  // res.set('content-lenght', Buffer.byteLength(result));
+  res.status(200).send(result);
 };
 
 const createUser = async (req, res) => {
@@ -23,8 +25,8 @@ const createUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   console.log(`El usuario que quieren actualizar es ${req.params.id}`);
-  const {nombre } = req.body;
-  const {id} = req.params;
+  const { nombre } = req.body;
+  const { id } = req.params;
   await updateUserDB(id, nombre);
   res
     .status(200)
@@ -32,7 +34,7 @@ const updateUser = async (req, res) => {
 };
 const deleteUser = async (req, res) => {
   console.log(`El usuario que quieren eliminar es ${req.params.id}`);
-  const {id} = req.params;
+  const { id } = req.params;
   await deleteUserDB(id);
   res.status(200).send("Usuario eliminado");
 };

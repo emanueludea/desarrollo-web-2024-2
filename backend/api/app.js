@@ -10,7 +10,7 @@ import { setContentType } from "./middleware.js";
 
 const app = express();
 app.use(express.json());
-app.use(setContentType);
+// app.use(setContentType);
 
 app.get("/users", getUsers);
 app.post("/users", createUser);
