@@ -1,1 +1,0 @@
-// Mapeo el endpoint con el controlador correspondiente
