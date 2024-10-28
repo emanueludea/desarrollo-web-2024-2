@@ -4,9 +4,8 @@ class Facultad {
     this.id = id;
     this.nombre = nombre;
   }
-
-  alarma = (mesaje) => {
-    console.log(mesaje);
-  };
+  static fromObject(obj) {
+    return new Facultad(obj.id, obj.nombre);
+  }
 }
 export { Facultad };
