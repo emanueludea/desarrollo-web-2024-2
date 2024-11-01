@@ -3,13 +3,13 @@ import { Course } from "./Course.mjs";
 
 class Student {
   #age;
-  constructor(dni, names, surname, dateOfBirth = null) {
+  constructor(dni, names, lastname, dateOfBirth = null) {
     this.dni = dni;
     this.names = names;
-    this.surname = surname;
+    this.lastname = lastname;
     this.dateOfBirth = dateOfBirth;
     // this.#setAge();
-    this.Degree = null;
+    this.degree = null;
     this.courses = new Set();
   }
 

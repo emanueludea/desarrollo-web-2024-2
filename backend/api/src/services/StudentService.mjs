@@ -6,7 +6,7 @@ import { Student } from "../models/Student.mjs";
 const retuninString = `
           dni,
           names,
-          surname,
+          lastname,
           date_of_birth, 
           extract(year FROM age(current_date, date_of_birth))`;
 class StudentService {
@@ -14,96 +14,81 @@ class StudentService {
     const client = new Db();
     try {
       console.log("getAll at StudentService");
-      const results = await client.selectQuery(
+      const results = await client.query(
         `SELECT ${retuninString}
         FROM student;`
       );
-      return results.rows.map((element) => Student.fromObject(element));
+      return results.rows.map(
+        ({ dni, names, lastname, date_of_birth }) =>
+          new Student(dni, names, lastname, date_of_birth)
+      );
     } catch (error) {
       console.log("error al listar alumnos", error);
+      throw new CustomError(error.code, error.detail);
     }
   };
 
   createStudent = async (dni, names, surname, dateOfBirth) => {
     try {
       const client = new Db();
-      const nuevo = await client.selectQuery(
-        `INSERT INTO student (dni, names, surname, date_of_birth) 
+      const result = await client.query(
+        `INSERT INTO student (dni, names, lastname, date_of_birth) 
         VALUES ($1, $2, $3, $4) RETURNING ${retuninString}`,
         [dni, names, surname, dateOfBirth]
       );
-      if (nuevo.rows.length > 0) {
-        return Student.fromObject(nuevo.rows[0]);
-      }
-      return null;
+      if (!result.rowCount) return null;
+      const { dni, names, lastname, date_of_birth } = result.rows[0];
+      return new Student(dni, names, lastname, date_of_birth);
     } catch (error) {
       console.log("error al crear alumno", error);
-      return null;
+      throw new CustomError(error.code, error.detail);
     }
   };
-  updateStudent = async (dni, names, surname, dateOfBirth) => {
+  updateStudent = async (stdDni, stdNames, stdLastname, stdDateOfBirth) => {
     try {
       const client = new Db();
-      const updated = await client.selectQuery(
-        `UPDATE student SET cedula = $1, 
-            nombres = $2, 
-            apellidos = $3, 
-            fecha_nacimiento = $4 
-          WHERE cedula = $1 
+      const result = await client.query(
+        `UPDATE student SET 
+            names = $1, 
+            lastname = $2, 
+            date_of_birth = $3 
+          WHERE dni = $4 
           RETURNING ${retuninString};`,
-        [cedula, nombres, apellidos, fechaNacimiento]
+        [stdNames, stdLastname, stdDateOfBirth, stdDni]
       );
-      if (actualizada.rows.length > 0)
-        return Alumno.fromObject(actualizada.rows[0]);
-      return null;
+      if (!result.rowCount) return null;
+      const { dni, names, lastname, date_of_birth } = result.rows[0];
+      return new Student(dni, names, lastname, date_of_birth);
     } catch (error) {
       console.log("error al actualizar alumno", error);
-    }
-  };
-  borrarAlumno = async (cedula) => {
-    try {
-      const obj = new Db().selectQuery(
-        `delete FROM facultades WHERE cedula = $1 RETURNING ${retuninString};`,
-        [cedula]
-      );
-      return Alumno.fromObject(obj);
-    } catch (error) {
-      console.log("error al eliminar alumno", error);
-    }
-  };
-  getCourses = async (dni) => {
-    const client = new Db();
-    try {
-      console.log("getCouses en AlumnoService");
-      const results = await client.selectQuery(
-        "SELECT * FROM course WHERE code IN (SELECT course_code FROM enrollment WHERE student_dni = $1)",
-        [dni]
-      );
-      return results.rows.map(
-        ({ code, name, semester }) => new Course(code, name, semester)
-      );
-    } catch (error) {
-      console.log("error al listar alumnos", error);
+      throw new CustomError(error.code, error.detail);
     }
   };
 
-  enrollCourse = async (dni, courseCode, semester) => {
-    const client = new Db();
+  deleteStudent = async (dni) => {
     try {
-      console.log("enrollCourse at StudentService");
-      const results = await client.selectQuery(
-        `INSERT INTO
-          enrollment (course_code, student_dni, semester)
-        VALUES
-          ($1, $2, $3)
-        RETURNING course_code, student_dni, semester;`,
-        [courseCode, dni, semester]
-      );
-      console.log(results);
-      return results.rows[0];
+      await new Db().query(`delete FROM student WHERE dni = $1`, [dni]);
     } catch (error) {
-      console.log("error at enrolling student on course", error);
-      return null;
+      console.log("error al eliminar alumno", error);
+      throw new CustomError(error.code, error.detail);
+    }
+  };
+
+  getOne = async (studentDni) => {
+    try {
+      console.log("getOne service");
+      const client = new Db();
+      const results = await client.query(
+        "SELECT * FROM student WHERE dni = $1",
+        [studentDni]
+      );
+      if (!results.rowCount) return null;
+      console.log(results);
+      const { dni, names, lastname, date_of_birth } = results.rows[0];
+      return new Student(dni, names, lastname, date_of_birth);
+    } catch (error) {
+      console.log(error);
+      throw new CustomError(error.code, error.detail);
     }
   };
 }

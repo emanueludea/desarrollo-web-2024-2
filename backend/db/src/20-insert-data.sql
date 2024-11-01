@@ -1,7 +1,7 @@
 BEGIN;
 
 INSERT INTO
-    professor (dni, name, surname)
+    professor (dni, name, lastname)
 VALUES
     ('1010101010', 'camilo', 'perez'),
     ('1010101011', 'santiago', 'penagos'),
@@ -67,7 +67,7 @@ VALUES
     ('fis0001', 'fisiología I', 4);
 
 INSERT INTO
-    student (dni, names, surname, date_of_birth)
+    student (dni, names, lastname, date_of_birth)
 VALUES
     ('2020202020', 'pepito', 'perez', '2000-10-01'),
     ('2020202021', 'pedro', 'andrade', '2001-06-02'),

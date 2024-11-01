@@ -27,14 +27,14 @@ class Db {
     return this.#client;
   }
 
-  selectQuery = async (query, values = []) => {
+  query = async (query, values = []) => {
     try {
       await this.#client.connect();
       console.log(query);
       const resultados = await this.#client.query(query, values);
       return resultados;
     } catch (err) {
-      console.log(err);
+      throw err;
     } finally {
       await this.#client.end();
     }

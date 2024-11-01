@@ -3,7 +3,7 @@ import { Professor } from "./Professor.mjs";
 
 // Clase que modela la entidad
 class Faculty {
-  constructor(id = null, name) {
+  constructor(id = null, name = '') {
     this.id = id;
     this.name = name;
     this.director = null;

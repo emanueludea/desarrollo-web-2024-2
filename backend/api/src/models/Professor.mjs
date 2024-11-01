@@ -2,10 +2,10 @@ import { Course } from "./Course.mjs";
 import { Faculty } from "./Faculty.mjs";
 
 class Professor {
-  constructor(dni, names, surname) {
+  constructor(dni, names, lastname) {
     this.dni = dni;
     this.names = names;
-    this.surname = surname;
+    this.lastname = lastname;
     this.directedFaculty = null;
     this.courses = new Set();
   }
