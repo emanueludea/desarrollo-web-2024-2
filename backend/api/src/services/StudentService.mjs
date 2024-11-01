@@ -2,6 +2,7 @@
 import { Db } from "../config/db.mjs";
 import { Course } from "../models/Course.mjs";
 import { Student } from "../models/Student.mjs";
+import { CustomError } from "../utils/CustomError.mjs";
 
 const retuninString = `
           dni,
@@ -28,15 +29,15 @@ class StudentService {
     }
   };
 
-  createStudent = async (dni, names, surname, dateOfBirth) => {
+  createStudent = async (stdDni, stdNames, stdLastname, stdDateOfBirth) => {
     try {
       const client = new Db();
       const result = await client.query(
         `INSERT INTO student (dni, names, lastname, date_of_birth) 
         VALUES ($1, $2, $3, $4) RETURNING ${retuninString}`,
-        [dni, names, surname, dateOfBirth]
+        [stdDni, stdNames, stdLastname, stdDateOfBirth]
       );
-      if (!result.rowCount) return null;
+      if (!result.rowCount) throw new CustomError();
       const { dni, names, lastname, date_of_birth } = result.rows[0];
       return new Student(dni, names, lastname, date_of_birth);
     } catch (error) {

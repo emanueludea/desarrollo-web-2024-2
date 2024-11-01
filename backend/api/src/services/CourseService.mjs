@@ -1,6 +1,7 @@
 // Llamados a la DB
 import { Db } from "../config/db.mjs";
 import { Course } from "../models/Course.mjs";
+import { CustomError } from "../utils/CustomError.mjs";
 
 class CourseService {
   getAll = async () => {
@@ -22,7 +23,7 @@ class CourseService {
         `INSERT INTO course (code, name, credits) VALUES ($1, $2, $3) RETURNING *`,
         [courseCode, courseName, courseCredits]
       );
-      if (!newCourse.rowCount) return null;
+      if (!newCourse.rowCount) throw new CustomError();
       const { code, name, credits } = newCourse.rows[0];
       return new Course(code, name, credits);
     } catch (error) {

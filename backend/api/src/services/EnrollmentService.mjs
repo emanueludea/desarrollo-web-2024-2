@@ -1,3 +1,5 @@
+import { CustomError } from "../utils/CustomError.mjs";
+
 class EnrollmentService {
   create = async (dni, courseCode, semester) => {
     const client = new Db();

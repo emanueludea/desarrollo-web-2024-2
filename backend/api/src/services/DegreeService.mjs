@@ -1,6 +1,7 @@
 // Llamados a la DB
 import { Db } from "../config/db.mjs";
 import { Degree } from "../models/Degree.mjs";
+import { CustomError } from "../utils/CustomError.mjs";
 
 class DegreeService {
   getAll = async () => {

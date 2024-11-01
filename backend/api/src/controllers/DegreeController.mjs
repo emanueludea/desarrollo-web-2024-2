@@ -1,6 +1,7 @@
 // Manipulo el request/response
 
 import { DegreeService } from "../services/DegreeService.mjs";
+import { CustomError } from "../utils/CustomError.mjs";
 
 // llamo a los servicios
 class DegreeController {
@@ -44,7 +45,7 @@ class DegreeController {
       res.status(204).send(deleted);
     } catch (error) {
       if (error instanceof CustomError)
-        res.status(500).send({ code: error.code, message: error.message });
+        return res.status(500).send({ code: error.code, message: error.message });
       throw error;
     }
   };

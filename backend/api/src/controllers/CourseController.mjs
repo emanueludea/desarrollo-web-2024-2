@@ -1,4 +1,6 @@
+import { validationResult, matchedData } from "express-validator";
 import { CourseService } from "../services/CourseService.mjs";
+import { CustomError } from "../utils/CustomError.mjs";
 
 class CourseController {
   #service;
@@ -12,14 +14,27 @@ class CourseController {
   };
 
   createCourse = async (req, res) => {
-    const { code, name, credits } = req.body;
-    if (!code || !name || !credits) {
-      return res.status(400).send({ code: 400, message: "some data missing" });
+    // const { code, name, credits } = req.body;
+    // if (!code || !name || !credits) {
+    //   return res.status(400).send({ code: 400, message: "some data missing" });
+    // }
+    const validated = validationResult(req);
+    if (!validated.isEmpty()) {
+      console.log(result);
+      return res.status(400).send({ errors: validated.array() });
     }
-    const created = await this.#service.createCourse(code, name, credits);
-    console.log(created, "created");
-    if (created == null) res.status(500).send("error");
-    else res.status(201).send(created);
+    const { code, name, credits } = matchedData(req);
+    console.log(code, typeof code, name, typeof name, credits, typeof credits);
+    try {
+      const result = await this.#service.createCourse(code, name, credits);
+      res.status(201).send(result);
+    } catch (error) {
+      if (error instanceof CustomError)
+        return res
+          .status(500)
+          .send({ code: error.code, message: error.message });
+      throw error;
+    }
   };
 
   updateCourse = async (req, res) => {
@@ -42,7 +57,9 @@ class CourseController {
       res.status(204).send(deleted);
     } catch (error) {
       if (error instanceof CustomError)
-        res.status(500).send({ code: error.code, message: error.message });
+        return res
+          .status(500)
+          .send({ code: error.code, message: error.message });
       throw error;
     }
   };

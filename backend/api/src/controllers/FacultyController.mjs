@@ -1,3 +1,4 @@
+import { validationResult } from "express-validator";
 import { FacultyService } from "../services/FacultyService.mjs";
 import { ProfessorService } from "../services/ProfessorService.mjs";
 import { CustomError } from "../utils/CustomError.mjs";
@@ -18,9 +19,15 @@ class FacultyController {
 
   createFaculty = async (req, res) => {
     const { name, dean_id } = req.body;
-    if (!name || !dean_id) {
-      return res.status(400).send({ code: 400, message: "some data missing" });
+    const result = validationResult(req);
+    // if (!name || !dean_id) {
+    //   return res.status(400).send({ code: 400, message: "some data missing" });
+    // }
+    if (!result.isEmpty()) {
+      console.log(result);
+      return res.status(400).send({ errors: result.array() });
     }
+
     try {
       const createdFaculty = await this.#facultyService.createFaculty(
         name,

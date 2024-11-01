@@ -1,4 +1,5 @@
 import { ProfessorService } from "../services/ProfessorService.mjs";
+import { CustomError } from "../utils/CustomError.mjs";
 
 class ProfessorController {
   #service;
@@ -47,7 +48,7 @@ class ProfessorController {
       res.status(204).end();
     } catch (error) {
       if (error instanceof CustomError)
-        res.status(500).send({ code: error.code, message: error.message });
+        return res.status(500).send({ code: error.code, message: error.message });
       throw error;
     }
   };

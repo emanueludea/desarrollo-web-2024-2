@@ -1,4 +1,5 @@
 // Manipulo el request/response
+import { validationResult, matchedData } from "express-validator";
 
 import { CourseService } from "../services/CourseService.mjs";
 import { StudentService } from "../services/StudentService.mjs";
@@ -20,20 +21,31 @@ class StudentController {
   };
 
   createStudent = async (req, res) => {
-    const { dni, names, lastname, dateOfBith } = req.body;
-    if (!dni || !names || !lastname) {
-      return res.status(400).send({ code: 400, message: "some data missing" });
+    const validated = validationResult(req);
+    if (!validated.isEmpty())
+      return res.status(400).send({ errors: validated.array() });
+    const { dni, names, lastname, dateOfBith } = matchedData(req);
+    // const { dni, names, lastname, dateOfBith } = req.body;
+    // if (!dni || !names || !lastname) {
+    //   return res.status(400).send({ code: 400, message: "some data missing" });
+    // }
+    try {
+      const newStudent = await this.#studentservice.createStudent(
+        dni,
+        names,
+        lastname,
+        dateOfBith ?? null
+      );
+      console.log(newStudent, "newStudent");
+      res.set("Location", `${req.Referer}/${dni}`);
+      res.status(201).send(newStudent);
+    } catch (error) {
+      if (error instanceof CustomError)
+        return res
+          .status(500)
+          .send({ code: error.code, message: error.message });
+      throw error;
     }
-    const newStudent = await this.#studentservice.createStudent(
-      dni,
-      names,
-      lastname,
-      dateOfBith ?? null
-    );
-    console.log(newStudent, "newStudent");
-    res.set("Location", `${req.Referer}/${dni}`);
-    if (newStudent == null) res.status(500).send("error");
-    else res.status(201).send(newStudent);
   };
 
   updateStudent = async (req, res) => {

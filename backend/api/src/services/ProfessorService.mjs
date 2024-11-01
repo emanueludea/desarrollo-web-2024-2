@@ -1,6 +1,7 @@
 // Llamados a la DB
 import { Db } from "../config/db.mjs";
 import { Professor } from "../models/Professor.mjs";
+import { CustomError } from "../utils/CustomError.mjs";
 
 class ProfessorService {
   getAll = async () => {

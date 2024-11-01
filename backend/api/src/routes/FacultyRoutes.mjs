@@ -1,12 +1,13 @@
 // Mapeo el endpoint con el controlador correspondiente
 import { Router } from "express";
+import { body } from "express-validator";
 import { FacultyController } from "../controllers/FacultyController.mjs";
 
 class FacultyRoutes {
   constructor() {
     this.router = Router();
     this.controller = new FacultyController();
-    
+
     /**
      * @openapi
      * components:
@@ -23,30 +24,30 @@ class FacultyRoutes {
      *    Faculty:
      *      type: object
      *      properties:
-     *        id: 
+     *        id:
      *          type: string
      *          description: the serial id
      *          example: 109
      *          required: false
-     *        name: 
+     *        name:
      *          type: string
      *          description: the course name
      *          example: matemáticas I
-     *        dean_id: 
+     *        dean_id:
      *          type: string
      *          description: the dni of the faculty dean
      *          example: 1010101010
      * /faculties:
      *  get:
      *    description: get all faculties
-     *    responses: 
-     *      200: 
+     *    responses:
+     *      200:
      *        description: Returns a list of objects
      *        content:
      *           application/json:
      *            schema:
      *              type: array
-     *              items: 
+     *              items:
      *                $ref: '#/components/schemas/Facultty'
      *  post:
      *    description: Creates a new course
@@ -56,8 +57,8 @@ class FacultyRoutes {
      *         application/json:
      *           schema:
      *             $ref: '#/components/schemas/Faculty'
-     *    responses: 
-     *      201: 
+     *    responses:
+     *      201:
      *        description: Returns the newly created faculty
      *        content:
      *           application/json:
@@ -72,13 +73,13 @@ class FacultyRoutes {
      *      required: true
      *  put:
      *    description: Edit an existing faculty
-     *    responses: 
-     *      200: 
+     *    responses:
+     *      200:
      *        description: Returns the updated course
      *  delete:
      *    description: Deletes a given course
-     *    responses: 
-     *      204: 
+     *    responses:
+     *      204:
      *        description: resource successfully deleted
      *      404:
      *        description: resource not found
@@ -92,7 +93,10 @@ class FacultyRoutes {
     this.router
       .route("/")
       .get(this.controller.getAll)
-      .post(this.controller.createFaculty);
+      .post(
+        [body("name").trim().notEmpty(), body("dean_id").trim().notEmpty()],
+        this.controller.createFaculty
+      );
 
     this.router
       .route("/:id")

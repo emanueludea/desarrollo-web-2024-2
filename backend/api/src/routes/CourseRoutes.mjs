@@ -1,5 +1,6 @@
 // Mapeo el endpoint con el controlador correspondiente
 import { Router } from "express";
+import { body } from "express-validator";
 import { CourseController } from "../controllers/CourseController.mjs";
 
 class CourseRoutes {
@@ -13,29 +14,29 @@ class CourseRoutes {
      *    Course:
      *      type: object
      *      properties:
-     *        code: 
+     *        code:
      *          type: string
      *          description: the course code
      *          example: mat0001
-     *        name: 
+     *        name:
      *          type: string
      *          description: the course name
      *          example: matemáticas I
-     *        credits: 
+     *        credits:
      *          type: integer
      *          description: the amount of credits
      *          example: 3
      * /courses:
      *  get:
      *    description: get all registered courses
-     *    responses: 
-     *      200: 
+     *    responses:
+     *      200:
      *        description: Returns a list of objects
      *        content:
      *           application/json:
      *            schema:
      *              type: array
-     *              items: 
+     *              items:
      *                $ref: '#/components/schemas/Course'
      *  post:
      *    description: Creates a new course
@@ -45,8 +46,8 @@ class CourseRoutes {
      *         application/json:
      *           schema:
      *             $ref: '#/components/schemas/Course'
-     *    responses: 
-     *      201: 
+     *    responses:
+     *      201:
      *        description: Returns the newly created course
      *        content:
      *           application/json:
@@ -68,19 +69,26 @@ class CourseRoutes {
      *                $ref: '#/components/schemas/Course'
      *  put:
      *    description: Modify a given course
-     *    responses: 
-     *      200: 
+     *    responses:
+     *      200:
      *        description: success
      *  delete:
      *    description: Deletes a given course
-     *    responses: 
-     *      204: 
+     *    responses:
+     *      204:
      *        description: successfully deleted
      */
     this.router
       .route("/")
       .get(this.controller.getAll)
-      .post(this.controller.createCourse);
+      .post(
+        [
+          body("code").trim().notEmpty(),
+          body("name").trim().notEmpty(),
+          body("credits").trim().isNumeric(),
+        ],
+        this.controller.createCourse
+      );
     this.router
       .route("/:code")
       .get(this.controller.getOne)

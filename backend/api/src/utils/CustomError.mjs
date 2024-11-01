@@ -1,5 +1,5 @@
 class CustomError extends Error {
-  constructor(code, message) {
+  constructor(code = "", message = "unspecified error") {
     super(message);
     this.code = code;
     this.message = null;
