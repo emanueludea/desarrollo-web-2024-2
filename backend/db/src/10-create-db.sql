@@ -6,6 +6,7 @@ CREATE TABLE
         name TEXT NOT NULL,
         lastname TEXT NOT NULL --,
         -- id_facultad_dirige SMALLINT REFERENCES facultades (id) -- un profesor puede no dirigir una facultad
+        password text;
     );
 
 CREATE TABLE
@@ -29,11 +30,12 @@ CREATE TABLE
         lastname TEXT NOT NULL,
         date_of_birth date NULL,
         degree_id SMALLINT,
+        password text,
         constraint degree_id FOREIGN KEY (degree_id) REFERENCES degree (id)
     );
 
 CREATE TABLE
-    course (    
+    course (
         code VARCHAR(8) PRIMARY KEY,
         name TEXT NOT NULL,
         credits SMALLINT NOT NULL,
