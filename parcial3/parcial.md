@@ -22,7 +22,7 @@ A partir del diagrama E-R dado construya:
     * /patient/login: inicia sesión como paciente, usando email y password. Retorna JWT con 30 minutos de vigencia
     * /patient/appointment
       * GET: listar todas las citas asignadas al paciente
-        * Se puede filtrar por fecha, pasando un query string: [?date=<DD/MM/YYYY>]
+        * Se puede filtrar por fecha, pasando un query string: [?date=<DD-MM-YYYY>]
         * Por ejemplo: /doctor/appointment?date=20-11-2024 mostrará las citas del paciene para esa fecha
       * POST: asignar una nueva cita al paciente (medico, fecha, hora)
     * /patient/appointment/:appointmentId
